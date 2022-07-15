@@ -1,0 +1,30 @@
+
+.name{
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+
+}
+.image{
+    width: 100%;
+    max-height: 230px;
+}
+/* .diets{
+    align-items: left;
+} */
+.diets h5{
+    font-size: 12px;
+}
+.cont{
+    display: flex;
+    justify-content: space-around;
+}
+.cont h3{
+    background-color: #1D3557;
+    padding: 10px;
+}
+.score{
+    padding: 30px;
+    color: #F1FAEE;
+
+}

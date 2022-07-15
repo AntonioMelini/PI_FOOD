@@ -1,0 +1,48 @@
+.paginado{
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    background-color:  #F1FAEE;
+    /* margin-top: 30%; */
+    align-content: space-around;
+    justify-content: center;
+}
+
+.num{
+   display: flex;
+   justify-content: space-between;
+   border-radius: 20px;
+   
+   
+}
+
+
+.ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    color: rgb(253, 250, 250);
+    margin-top: 30px;
+    
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% ;
+    height: 1.8rem;
+    width: 1.8rem;
+    border: 1px solid rgb(252, 249, 249);
+    margin-bottom: 2rem;
+    background: #1D3557; 
+    border-radius: 15px;
+    cursor: pointer;
+    
+}
+.container:hover {
+    background: #E63946;   
+    border-radius: 15px;
+}
+

@@ -1,0 +1,58 @@
+.filter{
+    display: flex;
+    justify-content: right;
+    padding: 10px 10px;
+    background-color:  #457B9D ;
+    height: 80px;
+}
+.btn{
+    padding: 25px 30px;
+}
+.btn button{
+    padding: 7px 17px;
+    font-size: 16px;
+    border-radius: 8px;
+    border-width: 0ch;
+
+}
+.btn button:hover{
+    cursor: pointer;
+}
+.dietas {
+    padding: 0px 30px;
+}
+.dietas h4{
+    margin-top: 0px;
+    color: white;
+}
+.dietas select{
+    padding: 4px 10px;
+    font-size: 15px;
+}
+.select{
+    padding: 9px;
+}
+.order{
+    width: 350px;
+}
+.order h4{
+    color: white;
+}
+.selects{
+    display: flex;
+    justify-content: center;
+}
+.abc{
+    padding: 10px 15px;
+}
+.abc select{
+    padding: 4px 10px;
+    font-size: 15px;
+}
+.points{
+    padding: 10px 15px;
+}
+.points select{
+    padding: 4px 10px;
+    font-size: 15px;
+}

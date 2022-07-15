@@ -1,0 +1,11 @@
+div input{
+    padding: 4px 8px;
+    color: #E63946;
+    font-size: 15px;
+}
+div button{
+    padding: 5px 8px;
+    background-color: #E63946;
+    font-size: 15px;
+    font-weight: 500;
+}

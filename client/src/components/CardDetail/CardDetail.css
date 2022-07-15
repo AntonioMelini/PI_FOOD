@@ -1,0 +1,63 @@
+.detailCard{
+    margin-left: 400px;
+    margin-top: 50px;
+    margin-right: 400px;
+    margin-bottom: 50px;
+    padding: 15px 15px;
+    background-color:  #827777;
+    min-height:100vh;
+}
+.detailCard h3{
+    padding: 10px;
+    font-size: 25px;
+}
+.detailCard img{
+    width:556px;
+    height: 360px;
+}
+/* .dietetics{
+} */
+.dietTypes{
+    display: flex;
+    justify-content: space-around;
+}
+.dietetics {
+    width: 300px;
+}
+
+.healscore{
+    margin-left: 50px;
+    background-color: #A8DADC;
+    margin-top: 25px;
+    margin-bottom: 45px;
+    padding: 10px 10px;
+    height: 50px;
+}
+.dietTypes h4{
+    margin-top: 20px;
+    font-size: 20px;
+}
+.detailCard h4{
+    margin-top: 20px;
+    font-size: 20px;
+}
+.sumary{
+    margin-left: 110px;
+    margin-right: 110px;
+}
+.detailCard ul{
+    margin-left: 110px;
+    margin-right: 110px;
+}
+.homes{
+    background-color: white;
+}
+.homesLink{
+    color: #827777;
+    width: 100%;
+    padding: 1px 490px;
+    font-size: large;
+}
+.homesLink:hover{
+    background-color:   #A8DADC;
+}

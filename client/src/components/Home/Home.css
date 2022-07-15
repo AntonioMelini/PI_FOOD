@@ -1,0 +1,52 @@
+*{
+  text-decoration: none;
+  color: inherit;
+}
+.nav{
+  display: flex;
+  justify-content: space-between;
+  background-color:   #F1FAEE
+  ;
+}
+.nav h3{
+  padding: 15px 20px;
+}
+.createAndSearch{
+  display: flex;
+  flex-direction: row;
+  padding: 15px 22px
+
+}
+.createAndSearchL {
+  padding: 3px 13px;
+  font-size: 20px;
+  background-color: #E63946;
+  margin-right: 10px;
+  border-radius: 6px;
+}
+.card{
+    width: 450px;
+    height: 425px;
+    background-color:   #A8DADC 
+    ;
+    box-shadow: 2px 2px 10px black;
+    transition: all 0.25s;
+    margin-top: 30px;
+    border-radius: 10px;
+}
+.card:hover{
+    transform: translate(-15px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+
+}
+.cards{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  
+}
