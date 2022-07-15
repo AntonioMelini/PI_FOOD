@@ -14,7 +14,8 @@ async function getRecipes(req,res,next){
                 attributes: ['Name'],
                 through: {
                     attributes: [],
-                }
+                },
+                required:true
             }
         })
     
@@ -51,7 +52,7 @@ async function getAllApiRecipes(){
         await Promise.all( recipeApi.map(async (recipe) => {
         //console.log(recipe)
 
-        let recipeCreated=await Recipe.create({
+        let recipeCreated= await Recipe.create({
                         Name: recipe.Name,
                         Resume_plate: recipe.Resume_plate,
                         Health_score: recipe.Health_score,
@@ -59,7 +60,7 @@ async function getAllApiRecipes(){
                         Image:  recipe.Image,
                         Dish_types: recipe.Dish_types ? recipe.Dish_types.join(" ") : "not specificated"
                 });
-    
+                
                 let diets= await Diet.findAll({
                     where:{
                         Name:recipe.Diets
@@ -69,7 +70,7 @@ async function getAllApiRecipes(){
             }))
         
                 
-        return recipeApi;
+        return "succesful";
         
     } catch (error) {
         console.log(error)
