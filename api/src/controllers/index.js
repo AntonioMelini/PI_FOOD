@@ -5,25 +5,10 @@ const { Op } = require("sequelize");
 
 async function getRecipes(req,res,next){
     try {
-        let apiInfo = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${YOUR_API_KEY}`)
-        
-        let recipeApi= apiInfo.data.results.map((recipe)=>({
-                Id:recipe.id,
-                Name:recipe.title,
-                Resume_plate:recipe.summary,
-                Health_score:recipe.healthScore,
-                Instructions:recipe.analyzedInstructions[0] && recipe.analyzedInstructions[0].steps.map(steps=>steps.step),
-                Image:recipe.image,
-                Diet:recipe.diets?.map(diet=>diet)
-            }))
-        
-        for (let i = 0; i < recipeApi.length; i++) {
-            apiInfo.data.results[i].vegetarian &&
-            recipeApi[i].Diet.push('vegetarian')
-            
-        }
+        await getAllApiRecipes();
+        //console.log(apiRecipes);
 
-        let recipeDB= await Recipe.findAll({
+        let allRecipes= await Recipe.findAll({
             include: {
                 model: Diet,
                 attributes: ['Name'],
@@ -33,12 +18,64 @@ async function getRecipes(req,res,next){
             }
         })
     
-        res.status(200).send(recipeApi.concat(recipeDB))
+        res.status(200).json(allRecipes)
     } catch (error) {
         next(error)
     }
 
 }
+
+
+
+async function getAllApiRecipes(){
+    try {
+        let apiInfo = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${YOUR_API_KEY}`)
+        
+        let recipeApi= apiInfo.data.results.map((recipe)=>({
+         
+            Id:recipe.id,
+            Name:recipe.title,
+            Resume_plate:recipe.summary,
+            Health_score:recipe.healthScore,
+            Instructions:recipe.analyzedInstructions[0] && recipe.analyzedInstructions[0].steps.map(steps=>steps.step),
+            Image:recipe.image,
+            Diets:recipe.diets?.map(diet=>diet),
+            Dish_types:recipe.dishTypes?.map(type=>type)
+        }))
+        
+        for (let i = 0; i < recipeApi.length; i++) {
+            apiInfo.data.results[i].vegetarian &&
+            recipeApi[i].Diets.push('vegetarian')
+        }
+
+        await Promise.all( recipeApi.map(async (recipe) => {
+        //console.log(recipe)
+
+        let recipeCreated=await Recipe.create({
+                        Name: recipe.Name,
+                        Resume_plate: recipe.Resume_plate,
+                        Health_score: recipe.Health_score,
+                        Instructions: recipe.Instructions ? recipe.Instructions.join(" ") : "not specificated",
+                        Image:  recipe.Image,
+                        Dish_types: recipe.Dish_types ? recipe.Dish_types.join(" ") : "not specificated"
+                });
+    
+                let diets= await Diet.findAll({
+                    where:{
+                        Name:recipe.Diets
+                    }
+                })
+                recipeCreated.addDiet(diets)
+            }))
+        
+                
+        return recipeApi;
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 

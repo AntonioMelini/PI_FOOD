@@ -11,19 +11,22 @@ module.exports = (sequelize) => {
       primaryKey:true,
     },
     Name:{
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     Resume_plate:{
-      type:DataTypes.STRING,
+      type:DataTypes.TEXT,
     },
     Health_score:{
       type:DataTypes.INTEGER
     },
     Instructions:{
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
     Image:{
+      type:DataTypes.STRING
+    },
+    Dish_types:{
       type:DataTypes.STRING
     }
   },{timestamps:false});
