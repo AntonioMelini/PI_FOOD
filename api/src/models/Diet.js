@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
         
       },
     Name: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING,
       allowNull: false,
     }
   },{timestamps:false});
