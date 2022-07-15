@@ -148,6 +148,15 @@ async function recipesID(req,res,next){
 }
 
 
+async function getAllDiets(req,res,next){
+    try {
+        let diets=await Diet.findAll()
+        diets.length && res.status(200).json(diets)  ;
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 
 
@@ -243,5 +252,6 @@ module.exports={
     recipesID,
     getDiets,
     createRecipes,
-    getAllApiRecipes
+    getAllApiRecipes,
+    getAllDiets
 }
