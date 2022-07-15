@@ -5,8 +5,6 @@ const { Op } = require("sequelize");
 
 async function getRecipes(req,res,next){
     try {
-        await getAllApiRecipes();
-        //console.log(apiRecipes);
 
         let allRecipes= await Recipe.findAll({
             include: {
@@ -18,7 +16,7 @@ async function getRecipes(req,res,next){
                 required:true
             }
         })
-    
+        
         res.status(200).json(allRecipes)
     } catch (error) {
         next(error)
@@ -29,6 +27,8 @@ async function getRecipes(req,res,next){
 
 
 async function getAllApiRecipes(){
+    let hay= await Recipe.findAll()
+    if(!hay.length){
     try {
         let apiInfo = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${YOUR_API_KEY}`)
         
@@ -71,10 +71,11 @@ async function getAllApiRecipes(){
         
                 
         return "succesful";
-        
+    
     } catch (error) {
         console.log(error)
     }
+}else return hay;
 }
 
 
@@ -87,22 +88,8 @@ async function recipesName(req,res,next){
         //
         if(name){
            
-            let apiInfo= await axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${YOUR_API_KEY}`)
-
-            let arrayRecipeApi= apiInfo.data.results.filter((recipe)=>recipe.title.includes(name))
-
-            let finalRecipe= arrayRecipeApi.map(recipe=>({
-                Id:recipe.id,
-                Name:recipe.title,
-                Resume_plate:recipe.summary,
-                Health_score:recipe.healthScore,
-                Instructions:recipe.analyzedInstructions[0] && recipe.analyzedInstructions[0].steps.map(steps=>steps.step),
-                Image:recipe.image,
-                Diet:recipe.diets?.map(diet=>diet)
-
-            }))
-
-            let recipeDB = await Recipe.findAll({
+            
+            let allRecipe = await Recipe.findAll({
                 where:{
                     Name: {
                     [Op.substring]: name
@@ -116,8 +103,8 @@ async function recipesName(req,res,next){
                     }
                 }
             })
-            console.log(recipeDB)
-            let allRecipe =  finalRecipe.concat(recipeDB)
+
+            
 
             if(allRecipe.length===0){
                 return res.status(404).send("Recipe not found")
@@ -142,39 +129,17 @@ async function recipesID(req,res,next){
         const {idReceta}=req.params;
         //console.log(name)
         if(idReceta){
-            if( idReceta.length!=36 ){
-            
-                let apiInfo= await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${YOUR_API_KEY}`)
-
-                let RecipeApi={
-                    Id:apiInfo.data.id,
-                    Name:apiInfo.data.title,
-                    Resume_plate:apiInfo.data.summary,
-                    Health_score:apiInfo.data.healthScore,
-                    Instructions:apiInfo.data.analyzedInstructions[0] && apiInfo.data.analyzedInstructions[0].steps.map(steps=>steps.step),
-                    Image:apiInfo.data.image,
-                    Diet:apiInfo.data.diets?.map(diet=>diet)
-                } 
-
-                
-                
-
-                //corregir para las recetas creadas
-
-            // console.log(allRecipe)
-                res.status(200).json(RecipeApi)
-            }else {
-                let recipeDB= await Recipe.findByPk(idReceta,{
-                    include: {
-                        model: Diet,
-                        attributes: ['Name'],
-                        through: {
-                            attributes: [],
-                        }
-                    }})
-                res.status(200).json(recipeDB)
+            let recipeDB= await Recipe.findByPk(idReceta,{
+                include: {
+                    model: Diet,
+                    attributes: ['Name'],
+                    through: {
+                        attributes: [],
+                    }
+                }})
+            res.status(200).json(recipeDB)
             }
-        }else{
+        else{
             next("Id invalid")
         }
     } catch (error) {
@@ -277,5 +242,6 @@ module.exports={
     getRecipes,
     recipesID,
     getDiets,
-    createRecipes
+    createRecipes,
+    getAllApiRecipes
 }
