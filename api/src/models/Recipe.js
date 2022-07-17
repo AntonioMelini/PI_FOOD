@@ -26,8 +26,12 @@ module.exports = (sequelize) => {
     Image:{
       type:DataTypes.STRING
     },
-    Dish_types:{
+    Created_by_user:{
       type:DataTypes.STRING
+    },
+    Dish_types:{
+      type:DataTypes.STRING,
+      defaultValue:false
     }
   },{timestamps:false});
 };

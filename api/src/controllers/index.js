@@ -25,7 +25,7 @@ async function getRecipes(req,res,next){
 }
 
 
-
+//
 // async function getAllApiRecipes(){
 //     let hay= await Recipe.findAll()
 //     if(!hay.length){
@@ -79,7 +79,7 @@ async function getRecipes(req,res,next){
 // }
 
 
-
+//
 
 async function recipesName(req,res,next){
     try {
@@ -159,7 +159,7 @@ async function getAllDiets(req,res,next){
 
 
 
-
+//
 
 // async function getDiets(){
 //     try {
@@ -202,6 +202,7 @@ async function getAllDiets(req,res,next){
 //         console.log(error)
 //     }
 // }
+//
 
 async function createRecipes(req,res,next){
     try {
@@ -251,7 +252,7 @@ module.exports={
     getRecipes,
     recipesID,
     createRecipes,
-    getAllDiets
+    getAllDiets,
     // getAllApiRecipes,
-    // getDiets,
+    // getDiets
 }
