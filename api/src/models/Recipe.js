@@ -11,11 +11,11 @@ module.exports = (sequelize) => {
       primaryKey:true,
     },
     Name:{
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     Resume_plate:{
-      type:DataTypes.STRING,
+      type:DataTypes.TEXT,
     },
     Health_score:{
       type:DataTypes.STRING,
@@ -32,13 +32,20 @@ module.exports = (sequelize) => {
       // }
     },
     Instructions:{
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
     Image:{
       type:DataTypes.TEXT
     },
     Dish_types:{
       type:DataTypes.STRING
+    },
+    Created_by_user:{
+      type:DataTypes.STRING
+    },
+    Dish_types:{
+      type:DataTypes.STRING,
+      defaultValue:false
     }
   },{timestamps:false});
 };
