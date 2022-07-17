@@ -25,8 +25,12 @@ const {Recipe}=require ('./src/db')
 // Syncing all the models at once.
 conn.sync({ force: false }).then(() => {
   server.listen(3001, () => {
+<<<<<<< HEAD
     // getDiets();
     // getAllApiRecipes();
+=======
+    getDiets()
+>>>>>>> a2a700a9e77d0181fca7fd4b78e50ad159ad4f3c
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });

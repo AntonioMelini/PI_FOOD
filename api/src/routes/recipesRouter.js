@@ -10,6 +10,4 @@ recipesRouter.get('/recipes',recipesName)
 recipesRouter.get('/recipes/:idReceta',recipesID)
 recipesRouter.post('/recipes',createRecipes)
 recipesRouter.get('/',getRecipes)
-
-
 module.exports = recipesRouter;

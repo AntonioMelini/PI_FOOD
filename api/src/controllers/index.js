@@ -21,7 +21,6 @@ async function getRecipes(req,res,next){
     } catch (error) {
         next(error)
     }
-
 }
 
 
@@ -81,18 +80,21 @@ async function getRecipes(req,res,next){
 
 //
 
+
+
 async function recipesName(req,res,next){
     try {
         const {name}=req.query;
         //console.log(name)
         //
+        if(name===""){return getRecipes(req,res,next)}
         if(name){
            
             
             let allRecipe = await Recipe.findAll({
                 where:{
                     Name: {
-                    [Op.substring]: name
+                    [Op.like]: `%${task}%`
                     }
                 },
                 include:{
@@ -211,7 +213,8 @@ async function createRecipes(req,res,next){
               Health_score,
               Instructions,
               Image,
-              diet}=req.body;
+              Dish_types,
+              diets}=req.body;
 
      
         let existeRecipe = await Recipe.findAll({
@@ -221,31 +224,36 @@ async function createRecipes(req,res,next){
         })
         //console.log(existeRecipe)
 
-        if(existeRecipe.length===0){
+        if(!existeRecipe.length){
            existeRecipe= await Recipe.create({
             Name,
             Resume_plate,
             Health_score,
             Instructions,
+            Dish_types,
             Image
         })
         }else{
-            return res.send("Its already created") 
+            return res.status(400).send("Its already created.Please change the name") 
         }
-
-        let diets= await Diet.findAll({
+        //console.log(existeRecipe)
+        let diet= await Diet.findAll({
             where:{
-                Name:diet
+                Name:diets
             }
         })
-        existeRecipe.addDiet(diets)
-        res.send(existeRecipe)
+        existeRecipe.addDiet(diet)
+        res.status(201).json(existeRecipe)
+        //console.log(diets)
 
         
     } catch (error) {
         next(error)
     }
+
 }
+
+
 
 module.exports={
     recipesName,
